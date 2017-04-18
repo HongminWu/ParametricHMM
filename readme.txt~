@@ -1,0 +1,4 @@
+@Hongmin Wu
+
+This repo is used to state estimation for robot contract task by parametric hidden markov model.
+this method as the baseline of the nonparametric bayesian HMM for state estimation
