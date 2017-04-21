@@ -19,14 +19,14 @@ warnings.filterwarnings("ignore", category= DeprecationWarning)
 training_dataset      = 'REAL_HIRO_ONE_SA_SUCCESS'
 training_file_id      = ['02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35'] #only one trial
 
-testing_dataset       = 'REAL_HIRO_ONE_SA_SUCCESS' #REAL_HIRO_ONE_SA_ERROR_CHARAC
-testing_file_id       = ['18'] #only one trial
+testing_dataset       = 'REAL_HIRO_ONE_SA_ERROR_CHARAC' #REAL_HIRO_ONE_SA_ERROR_CHARAC
+testing_file_id       = '07' #only one trial
 
 rootDATApath          = '/home/birl/npBayesHMM/HIRO_SA_DATA/'
 trained_models_path   = '/home/birl/npBayesHMM/python/state_estimation/normal_execution'
 dataType              = ['R_Torques.dat','R_Angles.dat'] #'R_Angles.dat','R_CartPos.dat' tuples can not edited
 time_step             = 0.005
-n_components          = 50
+n_components          = 25
 covariance_type       = "diag"
 Niter                 = 2000
 scale_length          = 5
@@ -56,8 +56,6 @@ def load_one_trial(dataPath, id):
     return  "20121127-HIROSA-S-" + id, sensor.transpose().values, scaling(sensor.transpose().values)
 
 def training(training_dataPath, training_file_id):
-    if os.path.isdir(trained_models_path ): # if exit
-        shutil.rmtree(trained_models_path, ignore_errors= False, onerror= None)
     training_folder_name, training_raw_data, training_sensor = load_one_trial(training_dataPath, training_file_id)
 
     print "Training the normal execution"
@@ -82,24 +80,25 @@ def testing(testing_dataPath, testing_file_id):
     testing_folder_name, testing_raw_data, testing_sensor= load_one_trial(testing_dataPath, testing_file_id)
 
     #load trained model
-    folders = os.listdir(trained_models_path)
-    train_model = joblib.load(os.path.join(trained_models_path, "tainedModel" + training_file_id[0] + ".pkl"))
-    log_likelihood = np.zeros((len(testing_sensor),len(folders)))
+    train_model = joblib.load(os.path.join(trained_models_path, "tainedModel_" + training_file_id[0] + ".pkl"))
+    #incremental testing
+    log_likelihood = np.zeros((len(testing_sensor)))
     obs = []
     for obs_idx in range(0, len(testing_sensor)):
         print "testing: " + str(obs_idx) + "/" + str(len(testing_sensor))
         obs.append(testing_sensor[obs_idx, :])
-        log_likelihood[obs_idx, 0] = train_model.score(obs)
+        log_likelihood[obs_idx] = train_model.score(obs)
     return testing_folder_name, testing_raw_data, testing_sensor, log_likelihood
 if __name__ == '__main__':
     # for training
     for file_id in training_file_id:
         training_folder_name, training_raw_data, training_sensor = training(rootDATApath + training_dataset, file_id)
      #   training_folder_name, training_raw_data, training_sensor = training(rootDATApath + training_dataset, training_file_id)
-        #training_folder_name, training_raw_data, training_sensor = load_one_trial(rootDATApath + training_dataset, training_file_id)
 
-'''
+
     # for testing
+    training_folder_name, training_raw_data, training_sensor = load_one_trial(rootDATApath + training_dataset, training_file_id[0]) #only for plot
+
     testing_folder_name, testing_raw_data, testing_sensor, log_likelihood  = testing(rootDATApath + testing_dataset, testing_file_id)
     plt.figure(1)
     ax_1 = plt.subplot(311)
@@ -114,8 +113,8 @@ if __name__ == '__main__':
 #    plt.plot(testing_sensor, alpha = 0.3)
 
     ax_3= plt.subplot(313)
-    #np.savetxt('s_threshold.out', np.amax(log_likelihood, axis=1)) # save the standard_thhreshold by training and testing the same successful trial.
-    #plt.plot(np.loadtxt('Standard_threshold.out'), 'b^', linewidth=2, label = 'Standard threshold')
+    #np.savetxt('REAL_02_threshold.out', log_likelihood) # save the standard_thhreshold by training and testing the same successful trial.
+    plt.plot(np.loadtxt('REAL_02_threshold.out'), 'r--', linewidth=2, label = 'threshold')
     plt.plot(log_likelihood, linewidth=3, label = "standard_threshold")
     plt.grid(True)
     plt.title("Log-Likelihood")
@@ -135,6 +134,6 @@ if __name__ == '__main__':
                  xytext=(+10, -30), textcoords='offset points', fontsize=16,
                  arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
     plt.show()
-'''
+
 
 
