@@ -11,25 +11,28 @@ from sklearn.externals import joblib
 from sklearn import preprocessing
 import warnings
 import shutil
+import glob
 import ipdb
 
 warnings.filterwarnings("ignore", category= DeprecationWarning)
 
 training_dataset      = 'REAL_HIRO_ONE_SA_SUCCESS'
-training_file_id      = 5
+training_file_id      = '09'
 
 testing_dataset       = 'REAL_HIRO_ONE_SA_SUCCESS'
-testing_file_id       = 10
+testing_file_id       = '10'
 
 rootDATApath          = '/home/birl/npBayesHMM/HIRO_SA_DATA/'
 trained_models_path   = '/home/birl/npBayesHMM/python/state_estimation/learned_models'
 dataType              = ['R_Torques.dat','R_Angles.dat'] #'R_Angles.dat','R_CartPos.dat' tuples can not edited
 label_str             = ['approach', 'rotation', 'insertion', 'mating']
 time_step             = 0.005
-n_components          = 6
+n_components          = 25 # number of states in the model
+n_mix                 =  2 # number of components in the GMM
 covariance_type       = "diag"
-Niter                 = 1000
+Niter                 = 2000
 scale_length          = 10
+HMM_TYPE              = "GaussianHMM" #GMMHMM
 
 def scaling(X):
     _index, _column = X.shape
@@ -44,17 +47,18 @@ def scaling(X):
 def load_one_trial(dataPath,id):
     sensor            = pd.DataFrame()
     Rstate            = pd.DataFrame()
-    folders           = [d for d in os.listdir(dataPath) if os.path.isdir(os.path.join(dataPath,d))]
-    for dat_file in os.listdir(os.path.join(dataPath,folders[id])):
-        if dat_file in dataType:
-            raw_data  = pd.read_csv(os.path.join(dataPath,folders[id])+'/' + dat_file, sep='\s+', header=None, skiprows=1, usecols = range(1,7))
-            sensor    = raw_data.transpose().append(sensor) # transpose to [ndim x length]
-        elif dat_file == 'R_State.dat':
-            Rstate    = pd.read_csv(os.path.join(dataPath, folders[id]) + '/' + dat_file, sep='\s+', header=None, skiprows=1)
-            Rstate    = Rstate.values / time_step
-            Rstate    = np.insert(Rstate, 0, 0, axis= 0)
-            Rstate    = np.append(Rstate, sensor.shape[1])
-    return  folders[id], raw_data.values, scaling(sensor.transpose().values), Rstate
+    #folders           = [d for d in os.listdir(dataPath) if os.path.isdir(os.path.join(dataPath,d))]
+    for folders in glob.glob(os.path.join(dataPath, "*" + id)):
+        for dat_file in os.listdir(folders):
+            if dat_file in dataType:
+                raw_data  = pd.read_csv(folders +'/' + dat_file, sep='\s+', header=None, skiprows=1, usecols = range(1,7))
+                sensor    = raw_data.transpose().append(sensor) # transpose to [ndim x length]
+            elif dat_file == 'R_State.dat':
+                Rstate    = pd.read_csv(folders + '/' + dat_file, sep='\s+', header=None, skiprows=1)
+                Rstate    = Rstate.values / time_step
+                Rstate    = np.insert(Rstate, 0, 0, axis= 0)
+                Rstate    = np.append(Rstate, sensor.shape[1])
+    return  folders, raw_data.values, scaling(sensor.transpose().values) , Rstate
 
 def training(training_dataPath, training_file_id):
     if os.path.isdir(trained_models_path ): # if exit
@@ -64,8 +68,12 @@ def training(training_dataPath, training_file_id):
         print "Training: state_" + str(istate)
         start_prob = np.zeros(n_components)
         start_prob[0] = 1
-        train_model = GaussianHMM(n_components=n_components, covariance_type=covariance_type,
-                              params="mct", init_params="cmt", n_iter=Niter)
+        if HMM_TYPE == "GaussianHMM":
+            train_model = GaussianHMM(n_components=n_components, covariance_type=covariance_type,
+                               params="mct", init_params="cmt", n_iter=Niter)
+        elif HMM_TYPE == "GMMHMM":
+            train_model = GMMHMM(n_components=n_components,n_mix= n_mix, covariance_type=covariance_type,
+                               params="tmcw", init_params="tmcw", n_iter=Niter)
         train_model.startprob_ = start_prob
         train_model = train_model.fit(training_sensor[int(Rstate[istate]):int(Rstate[istate + 1]),:])
         #save the models
@@ -119,7 +127,7 @@ if __name__ == '__main__':
         plt.title("Log-Likelihood")
     plt.legend(bbox_to_anchor = (0., 1.02, 1.,  .102), loc='lower right', frameon=True, shadow = True, ncol = log_likelihood.shape[1])
     plt.annotate('Hidden States:' + str(n_components) + ", "
-                 + ' GaussianHMM_cov=' + covariance_type + ", "
+                 + HMM_TYPE +'_cov=' + covariance_type + ", "
                  + "fixed transition matrix",
                  xy=(0, 0), xycoords='data',
                  xytext=(+10, -30), textcoords='offset points', fontsize=16,

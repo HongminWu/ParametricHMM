@@ -8,8 +8,9 @@ from hmmlearn.hmm import *
 from sklearn.externals import joblib
 import ipdb
 from sklearn.preprocessing import scale
+import warnings
 
-
+warnings.filterwarnings("ignore", category= DeprecationWarning)
 def matplot_list(list_data, figure_index, title,save=False,
                  label_string= ['Approach Motion',
                                 'Rotation Motion',
@@ -127,7 +128,7 @@ def main():
 
     covariance_type_string = 'diag'
 
-    preprocessing_scaling = True
+    preprocessing_scaling = False
 
     train_path = "/home/birl/npBayesHMM/HIRO_SA_DATA/REAL_HIRO_ONE_SA_SUCCESS/20121127-HIROSA-S-02"
 
