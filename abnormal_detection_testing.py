@@ -23,7 +23,7 @@ trained_model_id      = ['15','16','17','18','19','20']                  #define
 trained_models_path   = '/home/birl/npBayesHMM/python/state_estimation/trained_models'
 rootDATApath          = '/home/birl/npBayesHMM/HIRO_SA_DATA/'
 dataType              = ['R_Torques.dat','R_Angles.dat'] #'R_Angles.dat','R_CartPos.dat' tuples can not editedtime_step
-scale_length          = 5
+scale_length          = 10
 
 def scaling(X):
     _index, _column = X.shape
@@ -67,7 +67,9 @@ if __name__ == '__main__':
     #step_2
     CV_likelihood = []
     for model_id in trained_model_id:
+        temp_ = []
         temp_likelihood = []
+        minLen = []
         for file_id in testing_file_id:
             if file_id == model_id: #leave one out cross validation
                 continue
@@ -76,36 +78,57 @@ if __name__ == '__main__':
             testing_sensor,      \
             log_likelihood,      \
             train_model          = testing(rootDATApath + testing_dataset, file_id, model_id)
-            temp_likelihood.append(log_likelihood)
+            temp_.append(log_likelihood) #collect all the initial likelihood
+            minLen.append(len(log_likelihood))
+        minIdx = np.argmin(minLen)
+        minLen = min(minLen)
+        std = pd.Series(temp_[minIdx])
+        for align in range(len(temp_)):
+             other = pd.Series(temp_[align])
+             other = std.align(other,join='inner')
+             temp_likelihood.append(other[1].tolist())
         CV_likelihood.append(temp_likelihood)
-    #step_3
-    _likelihood = np.array(CV_likelihood) #convert the list to ndarray
+    #step_3: calculate the mean and standard derivation of each trained model#convert the list to ndarray
+    mean_sd_likelihood = []
+    finial_mean        = []
+    for nmodel in range(len(CV_likelihood) ):
+        temp_ = []
+        temp_mean = np.asarray(CV_likelihood[nmodel][:]).mean(axis= 0)        #mean
+        temp_.append(temp_mean)
+        finial_mean.append(temp_mean[-1]) # for select the optimal train
 
-
+        temp_var = np.sqrt(np.asarray(CV_likelihood[nmodel][:]).var(axis= 0)) #standard derivation
+        temp_.append(temp_var)
+        mean_sd_likelihood.append(temp_)
+    #step_4 each trained model is collected with one mean and one standard derivation
+    optimalModel = np.argmax(np.array(finial_mean))
+    #calculate the threshold of likelihood
+    thresthod =  np.array(mean_sd_likelihood[optimalModel][0] - 2 * mean_sd_likelihood[optimalModel][1])
+    expected_likelihood = np.array(mean_sd_likelihood[optimalModel][0])
 
     fig_1 = plt.figure()
-    ax_1 = fig_1.add_subplot(211)
-    plt.plot(testing_raw_data)
+    ax_1 = fig_1.add_subplot(111)
+    plt.plot(thresthod,'r--',linewidth=3, label="thresthod")
     plt.grid(True)
-    plt.title("The testing  signals in " + testing_dataset + "/" + testing_folder_name)
+    # plt.title("The testing  signals in " + testing_dataset + "/" + testing_folder_name)
 
-    ax_2 = fig_1.add_subplot(212)
+    #ax_2 = fig_1.add_subplot(212)
     # load trained model
-    plt.grid(True)
-    plt.title("Log-Likelihood")
-    plt.plot(log_likelihood, 'b-', linewidth=3, label="obs_likelihood")
+   # plt.grid(True)
+   # plt.title("expected_likelihood")
+    plt.plot(expected_likelihood, 'b-', linewidth=3, label="expected_likelihood")
     plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='lower right', frameon=True, shadow=True, ncol=1)
-    plt.savefig("fig_wrench_angles_state_"
-                + str(train_model.n_components)
-                + "_Covariance_" + train_model. covariance_type
-                + "_Transition_fixed_"
-                + "_test_" + testing_file_id
-                + ".eps",
-                format="eps")
-    plt.annotate('Hidden States:' + str(train_model.n_components) + ", "
-                 + ' GaussianHMM_cov=' + train_model.covariance_type + ", "
-                 + "fixed transition matrix",
-                 xy=(0, 0), xycoords='data',
-                 xytext=(+10, -30), textcoords='offset points', fontsize=16,
-                 arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
+    # plt.savefig("fig_wrench_angles_state_"
+    #             + str(train_model.n_components)
+    #             + "_Covariance_" + train_model. covariance_type
+    #             + "_Transition_fixed_"
+    #             + "_test_" + testing_file_id
+    #             + ".eps",
+    #             format="eps")
+    # plt.annotate('Hidden States:' + str(train_model.n_components) + ", "
+    #              + ' GaussianHMM_cov=' + train_model.covariance_type + ", "
+    #              + "fixed transition matrix",
+    #              xy=(0, 0), xycoords='data',
+    #              xytext=(+10, -30), textcoords='offset points', fontsize=16,
+    #              arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
     plt.show()

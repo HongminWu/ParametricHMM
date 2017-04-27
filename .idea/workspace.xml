@@ -5,29 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2698c20b-d513-45fb-ac49-32133c3877c7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Full_sum_log.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Subtask1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/abnormal_detection.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dim18.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_10_Covariance_diag_Transition_fixed_train_3_test_1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_10_Covariance_diagtrain_5_test_3.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_10_Covariance_diagtrain_5_test_8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_20_Covariance_diag_Transition_fixed_train_02_test_0.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_20_Covariance_diag_Transition_fixed_train_02_test_1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_20_Covariance_diag_Transition_fixed_train_02_test_2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_20_Covariance_diag_Transition_fixed_train_21_test_20.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_25_Covariance_diag_Transition_fixed_train_02_test_0.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_30_Covariance_diag_Transition_fixed_train_02_test_3.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_50_Covariance_diag_Transition_fixed_train_21_test_18.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_50_Covariance_diag_Transition_fixed_train_21_test_19.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_50_Covariance_diag_Transition_fixed_train_21_test_20.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fig_wrench_angles_state_6_Covariance_diagtrain_5_test_3.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/normalizer.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scale_preprocessing.eps" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trained_models/tainedModel_02.pkl" afterPath="$PROJECT_DIR$/trained_models/tainedModel_02.pkl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trained_models/tainedModel_03.pkl" afterPath="$PROJECT_DIR$/trained_models/tainedModel_03.pkl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ref/hmm_model_train_by_Ben.py" afterPath="$PROJECT_DIR$/ref/hmm_model_train_by_Ben.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/state_estimation_demo.py" afterPath="$PROJECT_DIR$/state_estimation_demo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/abnormal_detection_testing.py" afterPath="$PROJECT_DIR$/abnormal_detection_testing.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,8 +25,8 @@
           <file leaf-file-name="abnormal_detection_testing.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/abnormal_detection_testing.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="355">
-                  <caret line="85" column="24" lean-forward="true" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
+                <state relative-caret-position="273">
+                  <caret line="122" column="65" lean-forward="true" selection-start-line="122" selection-start-column="65" selection-end-line="122" selection-end-column="65" />
                   <folding>
                     <element signature="e#84#94#0" expanded="true" />
                   </folding>
@@ -121,7 +99,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="37" />
-    <option name="y" value="-876" />
+    <option name="y" value="24" />
     <option name="width" value="1403" />
     <option name="height" value="876" />
   </component>
@@ -432,19 +410,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="37" y="-876" width="1403" height="876" extended-state="6" />
+    <frame x="37" y="24" width="1403" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="7.127584E-4" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="7.246377E-4" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.38709676" sideWeight="0.51403886" order="7" side_tool="true" content_ui="tabs" x="353" y="355" width="727" height="304" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39325842" sideWeight="0.19030648" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28339577" sideWeight="0.5595153" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28277636" sideWeight="0.44347826" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28277636" sideWeight="0.5565217" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39325842" sideWeight="0.8096935" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47943446" sideWeight="0.8065217" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -500,11 +478,6 @@
           <line>141</line>
           <option name="timeStamp" value="170" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/abnormal_detection_testing.py</url>
-          <line>85</line>
-          <option name="timeStamp" value="182" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -513,13 +486,25 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="183" />
+      <option name="time" value="191" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="test_Data" />
         <watch expression="sensor" />
         <watch expression="transMatrix" />
+        <watch expression="other" />
+        <watch expression="CV_likelihood" />
+        <watch expression="CV_likelihood" />
+        <watch expression="_likelihood" />
+        <watch expression="_likelihood" />
+        <watch expression="_likelihood" />
+        <watch expression="mean_sd_likelihood" />
+        <watch expression="mean_sd_likelihood" />
+        <watch expression="mean_likelihood" />
+        <watch expression="mean_likelihood" />
+        <watch expression="i" />
+        <watch expression="mean_likelihood" />
       </configuration>
     </watches-manager>
   </component>
@@ -839,8 +824,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/abnormal_detection_testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="85" column="24" lean-forward="true" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
+        <state relative-caret-position="273">
+          <caret line="122" column="65" lean-forward="true" selection-start-line="122" selection-start-column="65" selection-end-line="122" selection-end-column="65" />
           <folding>
             <element signature="e#84#94#0" expanded="true" />
           </folding>
